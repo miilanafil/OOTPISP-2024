@@ -1,4 +1,6 @@
 #include "Tovarka.h"
+#include <cstring>
+
 //конструктор без параметров
 Imia::Imia() {
     strcpy(imia, "Неизвестно");
