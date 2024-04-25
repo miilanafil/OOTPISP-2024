@@ -1,6 +1,8 @@
 
 #include <iostream>
 #include "Tovarka.h"
+#include <cstring>
+
 
 using namespace std;
 int main() {
