@@ -1,21 +1,28 @@
-#ifndef Tovarka
-#define Tovarka
+#pragma once
+#ifndef TovarkaH
+#define TovarkaH
 #include <iostream>
-const int len = 40; class Imia {
-char imia[len]; int kol; float st;
+#include <cstring>
+const int len = 40;
+const float lenn = 40;
+class Imia
+{
+    char name[len];
+    int kol;
+    float st;
 public:
-Imia(); //конструктор без параметров
-    Imia(const char*, int, float); //конструктор с параметрами
-Imia(const Imia&); ~Imia();
-char* GetImia();
-int Getkol();
-    float Getst();
-//конструктор копирования //деструктор
-void SetImia(const char*);
-void Setkol(int);
-    void Setst(float);
-void Set(const char*, int, float);
-    void Print();
+    Imia();
+    Imia(const char*, int, float);
+    Imia(const Imia&);
+    ~Imia();
+    char* GetName();
+    int GetKol() const;
+    float GetSt() const;
+    void SetName(const char*);
+    void SetKol(int);
+    void SetSt(int);
+    void Set(const char*, int, float);
+    void Print() const;
 };
 #endif
 

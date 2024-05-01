@@ -1,32 +1,63 @@
-#include "Exam.h"
-
-void Exam::SetName(const char *name)
-{
-	_studentName = std::make_unique<std::string>(name);
+#include "Tovarka.h"
+Imia::Imia() {
+    strcpy(name, "Unknown");
+    SetKol(kol);
+    SetSt(st);
+    std::cout << "Called a constructor without parameters for an object" << this << std::endl;
 }
-
-void Exam::Set(const char *name, const int date, const int grade)
+Imia::Imia(const char* Name, int
+           Kol, float St)
 {
-	this->_date = date;
-	this->_grade = grade;
-	_studentName = std::make_unique<std::string>(name);
+    strcpy(name, Name);
+    SetKol(Kol);
+    SetSt(St);
+    std::cout << "\nCalled a constructor with parameters for an object " << this << std::endl;
 }
-
-Exam::Exam(const char *name, const int date, const int grade)
-	: _studentName(std::make_unique<std::string>(name)), _date(date), _grade(grade)
+Imia::Imia(const Imia& imia)
 {
-	std::cout << "The constructor with parameters is called " << this << std::endl;
+    strcpy(name, imia.name);
+    SetKol(kol, imia.kol);
+    SetSt(imia.st);
+    std::cout << "Called a copy constructor for an object" << this << std::endl;
 }
-
-Exam::Exam()
+Imia::~Imia()
 {
-	std::cout << "A constructor without parameters is called " << this << std::endl;
+    std::cout << "Called a destructor for an object" << this << std::endl;
 }
-
-void Exam::Print() const
+char* Imia::GetName()
 {
-	std::cout << "Student name: " << _studentName << std::endl;
-	std::cout << "Exam day: " << _date << std::endl;
-	std::cout << "Grade: " << _grade << std::endl;
-	std::cout << std::endl;
+    return name;
+}
+int Imia::GetKol() const
+{
+    return kol;
+}
+float Imia::GetSt() const
+{
+    return st;
+}
+void Imia::SetName(const char* Name)
+{
+    strcpy(name, Name);
+}
+void Imia::SetKol(int Kol)
+{
+    kol = Kol
+}
+void Imia::SetSt(int St)
+{
+    st = St;
+}
+void Imia::Set(const char* Name, int Kol, float St)
+{
+    strcpy(name, Name);
+    kol = Kol;
+    st = St;
+}
+void Imia::Print() const
+{
+    std::cout << "Имя: \t" << name << std::endl;
+    std::cout << "Количество: \t" << kol << std::endl;
+    std::cout << "Стоимость: \t" << st << std::endl;
+    std::cout << std::endl;
 }
