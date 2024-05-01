@@ -12,12 +12,11 @@ class Imia
     int st;
 
 public:
-    Imia() = default; // Конструктор по умолчанию
-    Imia(const std::string_view, int, int);
-    Imia(const Imia&) = delete; // Удаление конструктора копирования
-    ~Imia() = default; // Деструктор по умолчанию
+    Imia& operator=(const Imia&) = delete; // Delete copy assignment operator
 
-    Imia& operator=(const Imia&) = delete; 
+    Imia(); // Default constructor
+    Imia(const std::string_view, int, int);
+    ~Imia(); // Destructor
 
     std::string GetName() const;
     int GetKol() const;
@@ -25,7 +24,7 @@ public:
     void SetName(const std::string_view);
     void SetKol(int);
     void SetSt(int);
-    void Set(const std::string_view, int, int);
+    void Set(const std::string_view Name, int Kol, int St);
     void Print() const;
 };
 
