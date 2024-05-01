@@ -1,63 +1,32 @@
-#include "Tovarka.h"
-Imia::Imia() {
-    strcpy(name, "Unknown");
-    SetKol(kol);
-    SetSt(st);
-    std::cout << "Called a constructor without parameters for an object" << this << std::endl;
-}
-Imia::Imia(const char* Name, int
-           Kol, float St)
+#include "Exam.h"
+
+void Exam::SetName(const char *name)
 {
-    strcpy(name, Name);
-    SetKol(Kol);
-    SetSt(St);
-    std::cout << "\nCalled a constructor with parameters for an object " << this << std::endl;
+	_studentName = std::make_unique<std::string>(name);
 }
-Imia::Imia(const Imia& imia)
+
+void Exam::Set(const char *name, const int date, const int grade)
 {
-    strcpy(name, imia.name);
-    SetKol(kol, imia.kol);
-    SetSt(imia.st);
-    std::cout << "Called a copy constructor for an object" << this << std::endl;
+	this->_date = date;
+	this->_grade = grade;
+	_studentName = std::make_unique<std::string>(name);
 }
-Imia::~Imia()
+
+Exam::Exam(const char *name, const int date, const int grade)
+	: _studentName(std::make_unique<std::string>(name)), _date(date), _grade(grade)
 {
-    std::cout << "Called a destructor for an object" << this << std::endl;
+	std::cout << "The constructor with parameters is called " << this << std::endl;
 }
-char* Imia::GetName()
+
+Exam::Exam()
 {
-    return name;
+	std::cout << "A constructor without parameters is called " << this << std::endl;
 }
-int Imia::GetKol() const
+
+void Exam::Print() const
 {
-    return kol;
-}
-float Imia::GetSt() const
-{
-    return st;
-}
-void Imia::SetName(const char* Name)
-{
-    strcpy(name, Name);
-}
-void Imia::SetKol(int Kol)
-{
-    kol = Kol
-}
-void Imia::SetSt(int St)
-{
-    st = St;
-}
-void Imia::Set(const char* Name, int Kol, float St)
-{
-    strcpy(name, Name);
-    kol = Kol;
-    st = St;
-}
-void Imia::Print() const
-{
-    std::cout << "Имя: \t" << name << std::endl;
-    std::cout << "Количество: \t" << kol << std::endl;
-    std::cout << "Стоимость: \t" << st << std::endl;
-    std::cout << std::endl;
+	std::cout << "Student name: " << _studentName << std::endl;
+	std::cout << "Exam day: " << _date << std::endl;
+	std::cout << "Grade: " << _grade << std::endl;
+	std::cout << std::endl;
 }
