@@ -6,7 +6,7 @@ Imia::Imia() {
     std::cout << "Вызывается конструктор без параметров для объекта" << this << std::endl;
 }
 Imia::Imia(const char* Name, int
-           Kol, float St)
+           Kol, int St)
 {
     strcpy(name, Name);
     SetKol(Kol);
@@ -32,7 +32,7 @@ int Imia::GetKol() const
 {
     return kol;
 }
-float Imia::GetSt() const
+int Imia::GetSt() const
 {
     return st;
 }
@@ -48,7 +48,7 @@ void Imia::SetSt(int St)
 {
     st = St;
 }
-void Imia::Set(const char* Name, int Kol, float St)
+void Imia::Set(const char* Name, int Kol, int St)
 {
     strcpy(name, Name);
     kol = Kol;
