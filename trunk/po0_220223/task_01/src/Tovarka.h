@@ -3,6 +3,7 @@
 #define TovarkaH
 #include <iostream>
 #include <cstring>
+#include <string> 
 const int len = 40;
 class Imia
 {
