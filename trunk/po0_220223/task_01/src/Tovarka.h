@@ -15,7 +15,8 @@ public:
     Imia(const char*, int, float);
     Imia(const Imia&);
     ~Imia();
-    Imia& operator=(const Imia&); // Определение оператора присваивания    char* GetName();
+    Imia& operator=(const Imia&); // Определение оператора присваивания
+    char* GetName();
     int GetKol() const;
     float GetSt() const;
     void SetName(const char*);
