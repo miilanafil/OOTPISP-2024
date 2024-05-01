@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "Tovarka.h"
 
 using namespace std;
@@ -15,14 +16,15 @@ int main() {
     lib4.Print();
     
     Imia lib5 = lib1;
-    Imia* lib6 = &lib5;
-    lib6->Print();
-    Imia* p = new Imia[2];
-    p->Set("Lenovo", 9, 1500);
-    p->Print();
-    p++;
-    p->Set("Samsung", 10, 2300);
-    p->Print();
-    p--;
+    lib5.Print();
+
+    vector<Imia> p(2);
+
+    p[0].Set("Lenovo", 9, 1500);
+    p[0].Print();
+    
+    p[1].Set("Samsung", 10, 2300);
+    p[1].Print();
+
     return 0;
 }
