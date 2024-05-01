@@ -8,7 +8,7 @@ class Imia
 {
     char name[len];
     int kol;
-    float st;
+    int st;
 public:
     Imia();
     Imia(const char*, int, int);
