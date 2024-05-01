@@ -12,16 +12,17 @@ class Imia
     int st;
 public:
     Imia();
-    Imia(const std::string&, int, int);
+    Imia(const std::string_view, int, int);
     Imia(const Imia&);
     ~Imia();
     std::string GetName() const;
     int GetKol() const;
     int GetSt() const;
-    void SetName(const std::string&);
+    void SetName(const std::string_view);
     void SetKol(int);
     void SetSt(int);
-    void Set(const std::string&, int, int);
+    void Set(const std::string_view Name, int Kol, int St);
+
 
     void Print() const;
     

@@ -6,7 +6,7 @@ using namespace std;
 int main() {
     setlocale(LC_ALL, "rus");
 
-    void (Imia:: * fptr)(const std::string&, int, int);
+    void (Imia:: * fptr)(const std::string_view, int, int);
     fptr = &Imia::Set;
     Imia lib1;
     (lib1.*fptr)("Macbook", 12, 3000);

@@ -1,17 +1,11 @@
 #include "Tovarka.h"
-Imia::Imia() {
-    name = "Неизвестно";
-    SetKol(kol);
-    SetSt(st);
-    std::cout << "Вызывается конструктор без параметров для объекта" << this << std::endl;
+Imia::Imia() : name("Неизвестно"), kol(0), st(0) {
+    std::cout << "Вызывается конструктор без параметров для объекта " << this << std::endl;
 }
-Imia::Imia(const std::string& Name, int
-           Kol, int St)
-{
-    name = Name;
-    SetKol(Kol);
-    SetSt(St);
-    std::cout << "\nВызывается конструктор с параметрами для объекта " << this << std::endl;
+
+Imia::Imia(const std::string_view Name, int Kol, int St)
+    : name(Name), kol(Kol), st(St) {
+    std::cout << "Вызывается конструктор с параметрами для объекта " << this << std::endl;
 }
 Imia::Imia(const Imia& imia)
     : name(imia.name), kol(imia.kol), st(imia.st)
@@ -33,7 +27,7 @@ int Imia::GetSt() const
 {
     return st;
 }
-void Imia::SetName(const std::string& Name)
+void Imia::SetName(const std::string_view Name)
 {
     name = Name;
 }
@@ -45,9 +39,10 @@ void Imia::SetSt(int St)
 {
     st = St;
 }
-void Imia::Set(const std::string& Name, int Kol, int St)
+void Imia::Set(const std::string_view Name, int Kol, int St)
+
 {
-    name = Name;
+    name = std::string(Name);
     kol = Kol;
     st = St;
 }
