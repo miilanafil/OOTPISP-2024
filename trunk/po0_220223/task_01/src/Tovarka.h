@@ -6,22 +6,22 @@
 const int len = 40;
 class Imia
 {
-    char name[len];
+    std::string name;
     int kol;
     int st;
 public:
     Imia();
-    Imia(const char*, int, int);
+    Imia(const std::string&, int, int);
     Imia(const Imia&);
     ~Imia();
-    Imia& operator=(const Imia&); // Определение оператора присваивания
-    char* GetName();
+    std::string GetName() const;
     int GetKol() const;
     int GetSt() const;
-    void SetName(const char*);
+    void SetName(const std::string&);
     void SetKol(int);
     void SetSt(int);
-    void Set(const char*, int, int);
+    void Set(const std::string&, int, int);
+
     void Print() const;
     
     

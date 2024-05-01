@@ -1,31 +1,28 @@
 #include "Tovarka.h"
 Imia::Imia() {
-    strcpy(name, "Unknown");
+    name = "Неизвестно";
     SetKol(kol);
     SetSt(st);
     std::cout << "Вызывается конструктор без параметров для объекта" << this << std::endl;
 }
-Imia::Imia(const char* Name, int
+Imia::Imia(const std::string& Name, int
            Kol, int St)
 {
-    strcpy(name, Name);
+    name = Name;
     SetKol(Kol);
     SetSt(St);
     std::cout << "\nВызывается конструктор с параметрами для объекта " << this << std::endl;
 }
 Imia::Imia(const Imia& imia)
+    : name(imia.name), kol(imia.kol), st(imia.st)
 {
-    strcpy(name, imia.name);
-    SetKol(imia.kol);
-    SetSt(imia.st);
-    std::cout << "Вызывается конструктором копирования для объекта" << this << std::endl;
+    std::cout << "Вызывается конструктором копирования для объекта " << this << std::endl;
 }
 Imia::~Imia()
 {
     std::cout << "Вызывается деструктором объекта" << this << std::endl;
 }
-char* Imia::GetName()
-{
+std::string Imia::GetName() const {
     return name;
 }
 int Imia::GetKol() const
@@ -36,9 +33,9 @@ int Imia::GetSt() const
 {
     return st;
 }
-void Imia::SetName(const char* Name)
+void Imia::SetName(const std::string& Name)
 {
-    strcpy(name, Name);
+    name = Name;
 }
 void Imia::SetKol(int Kol)
 {
@@ -48,9 +45,9 @@ void Imia::SetSt(int St)
 {
     st = St;
 }
-void Imia::Set(const char* Name, int Kol, int St)
+void Imia::Set(const std::string& Name, int Kol, int St)
 {
-    strcpy(name, Name);
+    name = Name;
     kol = Kol;
     st = St;
 }
