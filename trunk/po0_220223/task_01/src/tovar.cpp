@@ -7,15 +7,8 @@ Imia::Imia(const std::string_view Name, int Kol, int St)
     : name(Name), kol(Kol), st(St) {
     std::cout << "Вызывается конструктор с параметрами для объекта " << this << std::endl;
 }
-Imia::Imia(const Imia& imia)
-    : name(imia.name), kol(imia.kol), st(imia.st)
-{
-    std::cout << "Вызывается конструктором копирования для объекта " << this << std::endl;
-}
-Imia::~Imia()
-{
-    std::cout << "Вызывается деструктором объекта" << this << std::endl;
-}
+
+
 std::string Imia::GetName() const {
     return name;
 }

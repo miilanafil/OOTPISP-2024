@@ -1,23 +1,23 @@
 #pragma once
 #ifndef TovarkaH
 #define TovarkaH
-
 #include <iostream>
-#include <string>
-
+#include <cstring>
+#include <string> 
+const int len = 40;
 class Imia
 {
+    
     std::string name;
     int kol;
     int st;
-
 public:
-    Imia& operator=(const Imia&) = delete; // Delete copy assignment operator
-
-    Imia(); // Default constructor
+    Imia& operator=(const Imia&) = delete;
+    
+    Imia();
     Imia(const std::string_view, int, int);
-    ~Imia(); // Destructor
-
+    Imia(const Imia&) = default;
+    ~Imia() = default;
     std::string GetName() const;
     int GetKol() const;
     int GetSt() const;
@@ -25,7 +25,12 @@ public:
     void SetKol(int);
     void SetSt(int);
     void Set(const std::string_view Name, int Kol, int St);
-    void Print() const;
-};
 
+
+    void Print() const;
+    
+    
+};
 #endif
+
+
