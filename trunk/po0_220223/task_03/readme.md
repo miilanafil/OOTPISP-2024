@@ -31,39 +31,49 @@
     }
 ```
 
-### Перегрузка операторов класса CantCastValue ###
+### Перегрузка операторов класса Figures ###
 
 ```c++
-bool CantCastValue::operator==(const CantCastValue &right) const
+
+bool Figures::operator==(const Figures& right) const
 {
-    return (this->erLevel == right.erLevel);
+    if (this->area == right.area && this->perimeter == right.perimeter)
+        return true;
+    else return false;
+}
 }
 ```
 
-### Перегрузка операторов класса NotEnoughtPrivileges ###
+### Перегрузка операторов класса Ellipse ###
 
 ```c++
-bool NotEnoughtPrivileges::operator==(const NotEnoughtPrivileges &right) const
+bool Ellipse::operator==(const Ellipse& right) const
 {
-    return ((this->writePrivileges == right.writePrivileges) && (this->readPrivileges == right.readPrivileges));
+    if (this->facet == right.facet)
+        return true;
+    else return false;
 }
 ```
 
-### Перегрузка операторов класса CastError ###
+### Перегрузка операторов класса Square ###
 
 ```c++
-bool CastError::operator==(const CastError &right) const
+bool Square::operator==(const Square& right) const
 {
-    return (this->errorCode == right.errorCode);
+    if (this->facet == right.facet)
+        return true;
+    else return false;
 }
 ```
 
-### Перегрузка операторов класса ImpossibleToInterface ###
+### Перегрузка операторов класса Trapeze ###
 
 ```c++
-bool ImpossibleToInterface::operator==(const ImpossibleToInterface &right) const
+bool Trapeze::operator==(const Trapeze& right) const
 {
-    return (this->interfaceNumber == right.interfaceNumber);
+    if (this->cargoCapacity == right.cargoCapacity)
+        return true;
+    else return false;
 }
 ```
 
