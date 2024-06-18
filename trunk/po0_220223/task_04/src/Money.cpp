@@ -1,6 +1,6 @@
 #include "Money.h"
 
-Money::Money(std::string money)
+Money::Money(const std::string money)
 {
     std::stringstream ss(money);
     char delimiter;
