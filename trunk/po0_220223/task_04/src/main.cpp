@@ -19,7 +19,7 @@ int main()
     std::cout << vect2[2] << std::endl;
     std::cout << "size vector 1: " << vect1() << std::endl;
 
-    
+    auto sumVect = vect1 + vect2;
    
 
     Vvector<Money> timeVect;
