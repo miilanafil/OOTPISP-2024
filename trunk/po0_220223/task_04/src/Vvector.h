@@ -53,7 +53,7 @@ void Vvector<T>::addVect(const T &elmnt)
         vectorElmnt = std::move(newElements);
         content *= 2;
     }
-    (*vectorElmnt)[quantity++] = elmnt;
+    
 }
 
 template <class T>
@@ -110,22 +110,3 @@ void Vvector<T>::printVect() const
     std::cout << "}" << std::endl;
 }
 
-// Определение дружественных функций (специализация шаблонов вне класса)
-template <class T>
-std::ostream &operator<<(std::ostream &out, const Vvector<T> &a)
-{
-    a.printVect();
-    return out;
-}
-
-template <class T>
-std::istream &operator>>(std::istream &in, Vvector<T> &a)
-{
-    for (int i = 0; i < a.getСontent(); i++)
-    {
-        T temp;
-        in >> temp;
-        a.addVect(temp);
-    }
-    return in;
-}
