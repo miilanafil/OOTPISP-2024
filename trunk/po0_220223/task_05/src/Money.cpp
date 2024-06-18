@@ -1,27 +1,27 @@
 #include "Money.h"
 
-Mmoney::Mmoney(const double a)
+Mmoney::Mmoney(double a)
 {
-    // Ваша реализация конструктора
+    rubles = static_cast<long>(a);
+    kopeck = static_cast<int>((a - rubles) * 100);
 }
 
 bool Mmoney::operator==(const Mmoney& a) const
 {
-    // Ваша реализация оператора сравнения ==
-    return (this->rubles == a.rubles && this->kopeck == a.kopeck);
+    return (rubles == a.rubles && kopeck == a.kopeck);
 }
 
-Mmoney Mmoney::operator+(const Mmoney& a) const
+Mmoney operator+(const Mmoney& lhs, const Mmoney& rhs)
 {
     Mmoney result;
-    result.rubles = this->rubles + a.rubles;
-    result.kopeck = this->kopeck + a.kopeck;
-
+    result.rubles = lhs.rubles + rhs.rubles;
+    result.kopeck = lhs.kopeck + rhs.kopeck;
+    
     if (result.kopeck >= 100)
     {
         result.rubles += result.kopeck / 100;
         result.kopeck %= 100;
     }
-
+    
     return result;
 }
