@@ -1,22 +1,53 @@
-#include "Money.h"
+#pragma once
+#ifndef MONEYH
+#define MONEYH
 
-Mmoney::Mmoney(double a)
+#include <iostream>
+
+class Mmoney
 {
-    rubles = static_cast<long>(a);
-    kopeck = static_cast<int>((a - rubles) * 100);
-}
+public:
+    Mmoney() = default;
+    explicit Mmoney(const double a);
+    Mmoney(const Mmoney& other) = default;
+    ~Mmoney() = default;
+    Mmoney& operator=(const Mmoney& a) = default;
+    bool operator==(const Mmoney& a) const;
+    auto operator<=>(const Mmoney& a) const = default;
+    Mmoney operator+(const Mmoney& a) const;
 
-bool Mmoney::operator==(const Mmoney& a) const
-{
-    return (rubles == a.rubles && kopeck == a.kopeck);
-}
+    friend std::ostream& operator<<(std::ostream& out, const Mmoney& a)
+    {
+        out << a.GetR() << ',' << a.GetK() << std::endl;
+        return out;
+    }
 
-Mmoney operator+(const Mmoney& lhs, const Mmoney& rhs)
+    friend std::istream& operator>>(std::istream& in, Mmoney& a)
+    {
+        std::cout << "Введите количество рублей" << std::endl;
+        in >> a.rubles;
+        std::cout << "Введите количество копеек" << std::endl;
+        in >> a.kopeck;
+        return in;
+    }
+
+    inline int GetK() const { return kopeck; };
+    inline long GetR() const { return rubles; };
+    inline void SetK(const int k) { kopeck = k; };
+    inline void SetR(const long r) { rubles = r; };
+
+private:
+    long rubles = 0;
+    int kopeck = 0;
+};
+
+inline Mmoney Mmoney::operator+(const Mmoney& a) const
 {
     Mmoney result;
-    result.rubles = lhs.rubles + rhs.rubles;
-    result.kopeck = lhs.kopeck + rhs.kopeck;
+    result.rubles = this->rubles + a.rubles;
+    result.kopeck = this->kopeck + a.kopeck;
     
+    // Корректировка копеек, если они превышают 100
     if (result.kopeck >= 100)
     {
         result.rubles += result.kopeck / 100;
@@ -25,3 +56,5 @@ Mmoney operator+(const Mmoney& lhs, const Mmoney& rhs)
     
     return result;
 }
+
+#endif
