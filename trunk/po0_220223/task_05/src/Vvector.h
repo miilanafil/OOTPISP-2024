@@ -19,7 +19,7 @@ public:
 
     int getCurrSize() const;
     T operator[](const int index) const;
-    auto operator*(const T value) const;
+    
     void print() const;
 
     int getMaxSize() const { return maxSize; };
@@ -48,14 +48,6 @@ void Vvector<T>::app(const T &other)
     currLength++;
 }
 
-template <typename T>
-auto Vvector<T>::operator*(const T value) const
-{
-    auto newVvector = std::make_unique<Vvector<T>>();
-    std::ranges::for_each(*elements | std::views::take(currLength), [&](const T &elem)
-                          { newVvector->app(elem * value); });
-    return newVvector;
-}
 
 template <typename T>
 int Vvector<T>::currSize() const

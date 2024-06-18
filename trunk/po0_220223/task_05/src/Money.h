@@ -26,9 +26,8 @@ public:
     void setSeconds(int sec) { seconds = sec; }
     void setHours(int hrs) { hours = hrs; }
 
-    Money operator+(const Money &t) const;
-    Money operator/(int divisor) const;
-    Money operator-(const Money &t) const;
+    
+    
 
     friend std::ostream &operator<<(std::ostream &os, const Money &t)
     {
@@ -56,67 +55,7 @@ void Money::fromString(std::string_view moneyString)
     ss >> hours >> delim >> minutes >> delim >> seconds;
 }
 
-Money Money::operator+(const Money &t) const
-{
-    Money result;
-    result.seconds = this->seconds + t.seconds;
-    result.minutes = this->minutes + t.minutes + result.seconds / SEC_IN_MIN;
-    result.hours = this->hours + t.hours + result.minutes / SEC_IN_MIN;
-    result.minutes %= SEC_IN_MIN;
-    result.seconds %= SEC_IN_MIN;
 
-    if (result.hours > 24)
-        result.hours -= 24;
 
-    if (result.minutes > SEC_IN_MIN)
-    {
-        result.minutes -= SEC_IN_MIN;
-        result.hours += 1;
-    }
+ 
 
-    if (result.seconds > SEC_IN_MIN)
-    {
-        result.seconds -= SEC_IN_MIN;
-        result.minutes += 1;
-    }
-
-    return result;
-}
-
-Money Money::operator/(const int t) const
-{
-    int secCount = this->hours * SEC_IN_HOUR + this->minutes * SEC_IN_MIN + this->seconds;
-    secCount /= t;
-    Money result;
-
-    result.hours = secCount / SEC_IN_HOUR;
-    result.minutes = (secCount % SEC_IN_HOUR) / SEC_IN_MIN;
-    result.seconds = secCount % SEC_IN_MIN;
-
-    return result;
-}
-
-Money Money::operator-(const Money &t) const
-{
-    Money result;
-    result.seconds = this->seconds - t.seconds;
-    result.minutes = this->minutes - t.minutes;
-    result.hours = this->hours - t.hours;
-
-    if (result.seconds < 0)
-    {
-        result.seconds += SEC_IN_MIN;
-        result.minutes -= 1;
-    }
-
-    if (result.minutes < 0)
-    {
-        result.minutes += SEC_IN_MIN;
-        result.hours -= 1;
-    }
-
-    if (result.hours < 0)
-        result.hours += 24;
-
-    return result;
-}

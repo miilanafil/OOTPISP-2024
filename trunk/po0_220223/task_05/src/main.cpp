@@ -29,39 +29,8 @@ void insertElementAtPosition(std::deque<T> &deq, const T &value, size_t position
     }
 }
 
-template <typename T>
-void adjustElementsByDifference(std::deque<T> &deq)
-{
-    if (!deq.empty())
-    {
-        auto [minIt, maxIt] = std::ranges::minmax_element(deq);
-        T difference = *maxIt - *minIt;
 
-        std::ranges::for_each(deq, [difference](T &elem)
-                              { elem = elem - difference; });
-    }
-}
 
-template <typename T>
-void insertElementAtPosition(std::queue<T> &q, const T &value, size_t position)
-{
-    std::vector<T> elements;
-    while (!q.empty())
-    {
-        elements.push_back(q.front());
-        q.pop();
-    }
-
-    if (auto it = std::ranges::find(elements, value); it != elements.end() && position <= elements.size())
-    {
-        elements.insert(elements.begin() + position, *it);
-    }
-
-    for (const auto &elem : elements)
-    {
-        q.push(elem);
-    }
-}
 
 template <typename T>
 void removeElement(std::queue<T> &q, const T &value)
@@ -78,32 +47,6 @@ void removeElement(std::queue<T> &q, const T &value)
     q = std::move(tempQueue);
 }
 
-template <typename T>
-void adjustElementsByDifference(std::queue<T> &q)
-{
-    if (!q.empty())
-    {
-        std::vector<T> elements;
-        while (!q.empty())
-        {
-            elements.push_back(q.front());
-            q.pop();
-        }
-
-        auto [minIt, maxIt] = std::ranges::minmax_element(elements);
-        T difference = *maxIt - *minIt;
-
-        for (auto &elem : elements)
-        {
-            elem = elem - difference;
-        }
-
-        for (const auto &elem : elements)
-        {
-            q.push(elem);
-        }
-    }
-}
 
 int main()
 {
@@ -113,7 +56,7 @@ int main()
 
     insertElementAtPosition(doubleDeque, 2.8, 4);
     removeElementFromDeque(doubleDeque, 1.4);
-    adjustElementsByDifference(doubleDeque);
+   
 
     for (const auto &elem : doubleDeque)
     {
@@ -142,7 +85,7 @@ int main()
 
     insertElementAtPosition(timeDeque, Money("11:52:16"), 3);
     removeElementFromDeque(timeDeque, Money("17:52:10"));
-    adjustElementsByDifference(timeDeque);
+    
 
     for (const auto &elem : timeDeque)
     {
@@ -159,9 +102,9 @@ int main()
     tim.push(Money("1:52:10"));
     tim.push(Money("23:52:00"));
 
-    insertElementAtPosition(tim, Money("14:52:12"), 2);
+    
     removeElement(tim, Money("12:52:11"));
-    adjustElementsByDifference(tim);
+    
 
     std::cout << "{ ";
     while (!tim.empty())

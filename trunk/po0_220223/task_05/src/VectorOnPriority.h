@@ -14,7 +14,7 @@ public:
     ~VectorOnPriority() = default;
 
     T front() const;
-    auto operator*(const T value) const;
+    
     void show() const;
 
     void application(const T &value);
@@ -64,18 +64,8 @@ int VectorOnPriority<T>::sizeVec() const
     return objects.size();
 }
 
-template <typename T>
-auto VectorOnPriority<T>::operator*(const T cost) const
-{
-    ::VectorOnPriority<T> newArr;
 
-    for (const auto &elem : toVector())
-    {
-        newArr.app(elem * cost);
-    }
 
-    return newArr;
-}
 
 template <typename T>
 void VectorOnPriority<T>::show() const
@@ -90,21 +80,7 @@ void VectorOnPriority<T>::show() const
     std::cout << "}" << std::endl;
 }
 
-template <typename T>
-void VectorOnPriority<T>::fold(const T &key, int position)
-{
-    std::vector<T> ourvec = toVector();
-    auto it = std::ranges::find(ourvec.begin(), ourvec.end(), key);
 
-    if (it == ourvec.end())
-        return;
-
-    if (position < 0 || position > ourvec.size())
-        return;
-
-    ourvec.insert(ourvec.begin() + position, *it);
-    fromVector(ourvec);
-}
 
 template <typename T>
 void VectorOnPriority<T>::deleteEl(const T &key)
