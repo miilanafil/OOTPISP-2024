@@ -99,21 +99,3 @@ void Vvector<T>::printVect() const
     std::cout << "}" << std::endl;
 }
 
-template <class T>
-std::ostream &operator<<(std::ostream &out, const Vvector<T> &a)
-{
-    a.printVect();
-    return out;
-}
-
-template <class T>
-std::istream &operator>>(std::istream &in, Vvector<T> &a)
-{
-    for (int i = 0; i < a.getСontent(); i++)
-    {
-        T temp;
-        in >> temp;
-        a.addVect(temp);
-    }
-    return in;
-}
