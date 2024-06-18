@@ -20,7 +20,8 @@ public:
 
     int getСontent() const { return content; };
 
-
+    friend std::ostream &operator<< <T>(std::ostream &output, const Vvector<T> &a);
+    friend std::istream &operator>> <T>(std::istream &input, Vvector<T> &a);
 
 private:
     std::unique_ptr<std::vector<T>> vectorElmnt = std::make_unique<std::vector<T>>(2);
