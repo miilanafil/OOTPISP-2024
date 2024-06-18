@@ -1,9 +1,9 @@
 
 #include "Money.h"
 
-Money::Money(const std::string &moneyVect)
+Money::Money(const std::string &timeVect)
 {
-    std::stringstream ss(moneyVect);
+    std::stringstream ss(timeVect);
     char delimiter;
     ss >> minutes >> delimiter >> seconds;
 }

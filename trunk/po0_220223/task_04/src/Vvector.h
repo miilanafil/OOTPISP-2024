@@ -11,109 +11,91 @@ public:
     Vvector() = default;
     ~Vvector() = default;
 
-    void Add(const T &element);
-    int Size() const;
+    void addVect(const T &elmnt);
+    int sizeVect() const;
     int operator()() const;
-    T operator[](const int index) const;
-    auto operator+(const T k) const;
-    auto operator+(const Vvector<T> &vvector) const;
-    void Show() const;
+    T operator[](const int i) const;
+    auto operator+(const Vvector<T> &vect) const;
+    void printVect() const;
 
-    inline int GetCapacity() const { return capacity; };
+    int getСontent() const { return content; };
 
- 
+
 
 private:
-    std::unique_ptr<std::vector<T>> vectorElem = std::make_unique<std::vector<T>>(2);
-    int capacity = 2;
-    int count = 0;
+    std::unique_ptr<std::vector<T>> vectorElmnt = std::make_unique<std::vector<T>>(2);
+    int content = 2;
+    int quantity = 0;
 };
 
 template <class T>
-void Vvector<T>::Add(const T &element)
+void Vvector<T>::addVect(const T &elmnt)
 {
-    if (count >= capacity)
+    if (quantity >= content)
     {
-        auto newElements = std::make_unique<std::vector<T>>(capacity * 2);
-        for (int i = 0; i < count; ++i)
+        auto newElements = std::make_unique<std::vector<T>>(content * 2);
+        for (int i = 0; i < quantity; ++i)
         {
-            (*newElements)[i] = (*vectorElem)[i];
+            (*newElements)[i] = (*vectorElmnt)[i];
         }
 
-        vectorElem = std::move(newElements);
-        capacity *= 2;
+        vectorElmnt = std::move(newElements);
+        content *= 2;
     }
-    (*vectorElem)[count++] = element;
+    quantity++;
+    (*vectorElmnt)[quantity] = elmnt;
 }
 
 template <class T>
-auto Vvector<T>::operator+(const Vvector<T> &vector) const
+auto Vvector<T>::operator+(const Vvector<T> &vect) const
 {
-    auto newVvector = std::make_unique<Vvector<T>>();
+    auto newVector = std::make_unique<Vvector<T>>();
 
-    int minSize = std::min(count, vector.Size());
+    int minimalSize = std::min(quantity, vect.sizeVect());
 
-    for (int i = 0; i < minSize; i++)
+    for (int i = 0; i < minimalSize; i++)
     {
-        newVvector->Add((*vectorElem)[i] + vector[i]);
+        newVector->addVect((*vectorElmnt)[i] + vect[i]);
     }
 
-    for (int i = minSize; i < count; i++)
+    for (int i = minimalSize; i < quantity; i++)
     {
-        newVvector->Add((*vectorElem)[i]);
+        newVector->addVect((*vectorElmnt)[i]);
     }
 
-    for (int i = minSize; i < vector.Size(); i++)
+    for (int i = minimalSize; i < vect.sizeVect(); i++)
     {
-        newVvector->Add(vector[i]);
+        newVector->addVect(vect[i]);
     }
 
-    return newVvector;
+    return newVector;
 }
 
 template <class T>
-int Vvector<T>::Size() const
+int Vvector<T>::sizeVect() const
 {
-    return count;
+    return quantity;
 }
 
 template <class T>
 int Vvector<T>::operator()() const
 {
-    return Size();
+    return sizeVect();
 };
 
 template <class T>
-T Vvector<T>::operator[](const int index) const
+T Vvector<T>::operator[](const int i) const
 {
-    return (*vectorElem)[index];
+    return (*vectorElmnt)[i];
 }
 
 template <class T>
-auto Vvector<T>::operator+(const T k) const //+k
-{
-    auto newVvector = std::make_unique<Vvector<T>>();
-
-    for (int i = 0; i < count; i++)
-    {
-        (*vectorElem)[i] += k;
-    }
-
-    for (int i = 0; i < count; i++)
-    {
-        newVvector->Add((*vectorElem)[i]);
-    }
-
-    return newVvector;
-}
-
-template <class T>
-void Vvector<T>::Show() const
+void Vvector<T>::printVect() const
 {
     std::cout << "{ ";
-    for (int i = 0; i < count; ++i)
+    for (int i = 0; i < quantity; ++i)
     {
-        std::cout << (*vectorElem)[i] << " ";
+        std::cout << (*vectorElmnt)[i] << " ";
     }
     std::cout << "}" << std::endl;
 }
@@ -121,18 +103,18 @@ void Vvector<T>::Show() const
 template <class T>
 std::ostream &operator<<(std::ostream &out, const Vvector<T> &a)
 {
-    a.Show();
+    a.printVect();
     return out;
 }
 
 template <class T>
 std::istream &operator>>(std::istream &in, Vvector<T> &a)
 {
-    for (int i = 0; i < a.GetCapacity(); i++)
+    for (int i = 0; i < a.getСontent(); i++)
     {
         T temp;
         in >> temp;
-        a.Add(temp);
+        a.addVect(temp);
     }
     return in;
 }

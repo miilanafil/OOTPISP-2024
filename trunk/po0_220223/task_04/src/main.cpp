@@ -4,39 +4,35 @@
 
 int main()
 {
-    Vvector<int> A;
-    Vvector<int> B;
+    Vvector<int> vect1;
+    Vvector<int> vect2;
 
-    std::cin >> A;
-    std::cout << A;
-    std::cout << A[1] << std::endl;
+    std::cin >> vect1;
+    std::cout << vect1;
+    std::cout << vect1[1] << std::endl;
 
-    B.Add(1);
-    B.Add(2);
-    B.Add(3);
-    B.Add(4);
+    vect2.addVect(1);
+    vect2.addVect(2);
+    vect2.addVect(3);
+    vect2.addVect(4);
 
-    std::cout << B;
-    std::cout << B[2] << std::endl;
-    std::cout << "size A = " << A() << std::endl;
+    std::cout << vect2;
+    std::cout << vect2[2] << std::endl;
+    std::cout << "size vector 1: " << vect1() << std::endl;
 
-    auto C = A + 10;
-    std::cout << *C;
-    std::cout << "2 element in vector C is " << (*C)[1] << std::endl;
+    auto sumVect = vect1 + vect2;
+    std::cout << *sumVect;
 
-    auto F = A + B;
-    std::cout << *F;
+    Vvector<Money> timeVect;
 
-    Vvector<Money> time;
+    std::cin >> timeVect;
+    std::cout << timeVect;
 
-    std::cin >> time;
-    std::cout << time;
+    timeVect.addVect(Money("11:41"));
+    timeVect.addVect(Money("51:51"));
+    timeVect.addVect(Money("31:50"));
+    timeVect.addVect(Money("11:11"));
 
-    time.Add(Money("10:41"));
-    time.Add(Money("50:51"));
-    time.Add(Money("32:50"));
-    time.Add(Money("17:11"));
-
-    std::cout << time;
+    std::cout << timeVect;
     return 0;
 }
