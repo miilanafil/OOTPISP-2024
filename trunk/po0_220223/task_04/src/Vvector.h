@@ -15,7 +15,7 @@ public:
     int sizeVect() const;
     int operator()() const;
     T operator[](const int i) const;
-    auto operator+(const Vvector<T> &vect) const;
+   
     void printVect() const;
 
     int getСontent() const { return content; };
@@ -45,36 +45,7 @@ void Vvector<T>::addVect(const T &elmnt)
     (*vectorElmnt)[quantity] = elmnt;
 }
 
-template <class T>
-auto Vvector<T>::operator+(const Vvector<T> &vect) const
-{
-    auto newVector = std::make_unique<Vvector<T>>();
 
-    int minimalSize = std::min(quantity, vect.sizeVect());
-
-    for (int i = 0; i < minimalSize; i++)
-    {
-        newVector->addVect((*vectorElmnt)[i] + vect[i]);
-    }
-
-    for (int i = minimalSize; i < quantity; i++)
-    {
-        newVector->addVect((*vectorElmnt)[i]);
-    }
-
-    for (int i = minimalSize; i < vect.sizeVect(); i++)
-    {
-        newVector->addVect(vect[i]);
-    }
-
-    return newVector;
-}
-
-template <class T>
-int Vvector<T>::sizeVect() const
-{
-    return quantity;
-}
 
 template <class T>
 int Vvector<T>::operator()() const
