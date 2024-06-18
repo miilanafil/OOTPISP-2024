@@ -21,8 +21,7 @@ public:
 
     inline int GetCapacity() const { return capacity; };
 
-    friend std::ostream &operator<< <T>(std::ostream &out, const Vvector<T> &a);
-    friend std::istream &operator>> <T>(std::istream &in, Vvector<T> &a);
+ 
 
 private:
     std::unique_ptr<std::vector<T>> vectorElem = std::make_unique<std::vector<T>>(2);
