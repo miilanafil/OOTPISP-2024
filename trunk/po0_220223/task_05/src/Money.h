@@ -1,33 +1,32 @@
 #pragma once
 #ifndef MONEYH
 #define MONEYH
+
 #include <iostream>
 
-
-class Money
+class Mmoney
 {
 public:
-    Money() = default;
-    explicit Money(const double a);
-    Money(const Money& other) = default;
-    ~Money() = default;
-    Money& operator=(const Money& a) = default;
-    bool operator==(const Money& a) const;
-    auto operator<=>(const Money& a) const = default;
-    Money operator+(const Money& a) const;
+    Mmoney() = default;
+    explicit Mmoney(const double a);
+    Mmoney(const Mmoney& other) = default;
+    ~Mmoney() = default;
+    Mmoney& operator=(const Mmoney& a) = default;
+    bool operator==(const Mmoney& a) const;
+    auto operator<=>(const Mmoney& a) const = default;
+    Mmoney operator+(const Mmoney& a) const;
 
-
-    friend std::ostream& operator << (std::ostream& out, const Money& a)
+    friend std::ostream& operator<<(std::ostream& out, const Mmoney& a)
     {
         out << a.GetR() << ',' << a.GetK() << std::endl;
         return out;
     }
 
-    friend std::istream& operator >> (std::istream& in, Money& a)
+    friend std::istream& operator>>(std::istream& in, Mmoney& a)
     {
-        std::cout << "Enter amount of rubles" << std::endl;
+        std::cout << "Введите количество рублей" << std::endl;
         in >> a.rubles;
-        std::cout << "Enter amount of kopeck" << std::endl;
+        std::cout << "Введите количество копеек" << std::endl;
         in >> a.kopeck;
         return in;
     }
