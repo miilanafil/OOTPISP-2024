@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(SOURCE_FILES  main.cpp)
 
-set(HEADER_FILES Time.h Vvector.h VectorOnPriority.h)
+set(HEADER_FILES Money.h Vvector.h VectorOnPriority.h)
 
 set(ALL_SOURCES ${HEADER_FILES}
                 ${SOURCE_FILES})
