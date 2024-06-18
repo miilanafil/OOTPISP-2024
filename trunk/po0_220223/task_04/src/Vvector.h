@@ -20,8 +20,8 @@ public:
 
     int getСontent() const { return content; };
 
-    friend std::ostream &operator<< <T>(std::ostream &output, const Vvector<T> &a);
-    friend std::istream &operator>> <T>(std::istream &input, Vvector<T> &a);
+    friend std::ostream &operator<< <>(std::ostream &output, const Vvector<T> &a);
+    friend std::istream &operator>> <>(std::istream &input, Vvector<T> &a);
 
 private:
     std::unique_ptr<std::vector<T>> vectorElmnt = std::make_unique<std::vector<T>>(2);
@@ -43,8 +43,7 @@ void Vvector<T>::addVect(const T &elmnt)
         vectorElmnt = std::move(newElements);
         content *= 2;
     }
-    quantity++;
-    (*vectorElmnt)[quantity] = elmnt;
+    (*vectorElmnt)[quantity++] = elmnt;
 }
 
 template <class T>
@@ -69,7 +68,7 @@ auto Vvector<T>::operator+(const Vvector<T> &vect) const
         newVector->addVect(vect[i]);
     }
 
-    return newVector;
+    return *newVector;
 }
 
 template <class T>
