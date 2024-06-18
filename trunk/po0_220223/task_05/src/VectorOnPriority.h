@@ -1,122 +1,147 @@
 #pragma once
-
-#include <iostream>
+#ifndef MYQVECTOR
+#define MYQVECTOR
 #include <queue>
-#include <vector>
-#include <algorithm>
-#include <ranges>
+#include <iostream>
 
-template <typename T>
+
+template <class T>
 class VectorOnPriority
 {
 public:
     VectorOnPriority() = default;
+    explicit VectorOnPriority(int n);
     ~VectorOnPriority() = default;
-
-    T front() const;
-    
-    void show() const;
-
-    void application(const T &value);
-
-    void fold(const T &key, int position);
-    void deleteEl(const T &key);
-    void subMinMax();
-    int sizeVec() const;
-
+    void Print() const;
+    void Add(const T& a);
+    void putMinToEnd();
+    void findByKeyAndDelete(T key);
+    void addAllMinMaxSum();
 private:
-    void fromVector(const std::vector<T> &vec);
-
-    std::vector<T> toVector() const;
-
-    std::priority_queue<T> objects;
+    std::queue <T> _q;
+    int _len = 0;
 };
 
-template <typename T>
-void VectorOnPriority<T>::application(const T &cost)
+#endif
+
+template<class T>
+inline void VectorOnPriority<T>::Print() const
 {
-    objects.push(cost);
+    std::queue <T> tmp_q = _q;
+    for (int i = 0; i < _len;  i++)
+    {
+        std::cout << tmp_q.front() << std::endl;
+        tmp_q.pop();
+    }
 }
 
-template <typename T>
-void VectorOnPriority<T>::subMinMax()
+template<class T>
+inline void VectorOnPriority<T>::Add(const T& a)
 {
-    if (objects.empty())
-        return;
+    _q.push(a);
+    _len++;
+}
 
-    std::vector<T> vec = toVector();
-    T min = *std::ranges::min_element(vec);
-    T max = *std::ranges::max_element(vec);
-
-    T diff = max - min;
-
-    for (auto &elem : vec)
+template<class T>
+inline void VectorOnPriority<T>::putMinToEnd()
+{
+    int index = 0;
+    std::queue<T> tmp_q = _q;
+    T tmp = tmp_q.front(); tmp_q.pop();
+    for (int i = 1; i < _q.size(); i++)
     {
-        elem = elem - diff;
+        T tmp1 = tmp_q.front(); tmp_q.pop();
+            if (tmp1 < tmp)
+            {
+                index = i;
+                tmp = tmp1;
+            }
+    }
+    auto len = static_cast<int>(_q.size());
+    tmp_q = _q;
+    for (int i = 0; i < len; i++)
+    {
+        _q.pop();
+        if (i != index)
+            _q.push(tmp_q.front());
+        tmp_q.pop();
+    }
+    _q.push(tmp);
+}
+
+template<class T>
+inline void VectorOnPriority<T>::findByKeyAndDelete(T key)
+{
+    int index = 0;
+    std::queue<T> tmp_q = _q;
+    for (int i = 0; i < _q.size(); i++)
+    {
+        if (tmp_q.front() == key)
+        {
+            index = i;
+        }
+        tmp_q.pop();
+    }
+    auto len = static_cast<int>(_q.size());
+    tmp_q = _q;
+    for (int i = 0; i < len; i++)
+    {
+        _q.pop();
+        if (i != index)
+        {
+            _q.push(tmp_q.front());
+            tmp_q.pop();
+        }
+    }
+    _len--;
+}
+
+template<class T>
+inline void VectorOnPriority<T>::addAllMinMaxSum()
+{
+    std::queue<T> tmp_q = _q;
+    T min = tmp_q.front(); tmp_q.pop();
+    for (int i = 1; i < _q.size(); i++)
+    {
+        T tmp1 = tmp_q.front(); tmp_q.pop();
+        if (tmp1 < min)
+        {
+            min = tmp1;
+        }
     }
 
-    fromVector(vec);
-}
-
-template <typename T>
-int VectorOnPriority<T>::sizeVec() const
-{
-    return objects.size();
-}
-
-
-
-
-template <typename T>
-void VectorOnPriority<T>::show() const
-{
-    auto ourvec = toVector();
-
-    std::cout << "{ ";
-    for (const auto &elem : ourvec)
+    tmp_q = _q;
+    T max = tmp_q.front(); tmp_q.pop();
+    for (int i = 1; i < _q.size(); i++)
     {
-        std::cout << elem << " ";
-    }
-    std::cout << "}" << std::endl;
-}
-
-
-
-template <typename T>
-void VectorOnPriority<T>::deleteEl(const T &key)
-{
-    std::vector<T> vec = toVector();
-    std::erase(vec, key);
-    fromVector(vec);
-}
-
-template <typename T>
-std::vector<T> VectorOnPriority<T>::toVector() const
-{
-    std::vector<T> vect;
-    std::priority_queue<T> temp = objects;
-
-    while (!temp.empty())
-    {
-        vect.push_back(temp.top());
-        temp.pop();
+        T tmp1 = tmp_q.front(); tmp_q.pop();
+        if (tmp1 > max)
+        {
+            max = tmp1;
+        }
     }
 
-    std::ranges::reverse(vect);
-    return vect;
+    T sum = min + max;
+    auto len = static_cast<int>(_q.size());
+    tmp_q = _q;
+    for (int i = 0; i < len; i++)
+    {
+        _q.pop();
+        _q.push(tmp_q.front() + sum);
+        tmp_q.pop();
+    }
+
 }
 
-template <typename T>
-void VectorOnPriority<T>::fromVector(const std::vector<T> &vec)
-{
-    std::priority_queue<T> newQue(vec.begin(), vec.end());
-    objects = std::move(newQue);
-}
 
-template <typename T>
-T VectorOnPriority<T>::front() const
+template<class T>
+inline VectorOnPriority<T>::VectorOnPriority(int n)
 {
-    if (!objects.empty())
-        return objects.top();
-    return T();
+    T a;
+    for (int i = 0; i < n; i++)
+    {
+        std::cin >> a;
+        _q.push(a);
+    }
+    _len = _q.size();
 }

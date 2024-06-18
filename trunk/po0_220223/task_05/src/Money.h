@@ -1,61 +1,45 @@
 #pragma once
-
+#ifndef MONEYH
+#define MONEYH
 #include <iostream>
-#include <string>
-#include <sstream>
-#include <string_view>
+
 
 class Money
 {
 public:
-    static constexpr int SEC_IN_HOUR = 3600;
-    static constexpr int SEC_IN_MIN = 60;
-
     Money() = default;
-    explicit Money(std::string_view timeString);
+    explicit Money(const double a);
+    Money(const Money& other) = default;
     ~Money() = default;
+    Money& operator=(const Money& a) = default;
+    bool operator==(const Money& a) const;
+    auto operator<=>(const Money& a) const = default;
+    Money operator+(const Money& a) const;
 
-    Money &operator=(const Money &money) = default;
-    auto operator<=>(const Money &t) const = default;
 
-    int getMinutes() const { return minutes; }
-    int getSeconds() const { return seconds; }
-    int getHours() const { return hours; }
-
-    void setMinutes(int min) { minutes = min; }
-    void setSeconds(int sec) { seconds = sec; }
-    void setHours(int hrs) { hours = hrs; }
-
-    
-    
-
-    friend std::ostream &operator<<(std::ostream &os, const Money &t)
+    friend std::ostream& operator << (std::ostream& out, const Money& a)
     {
-        os << t.getHours() << ":" << t.getMinutes() << ":" << t.getSeconds();
-        return os;
+        out << a.GetR() << ',' << a.GetK() << std::endl;
+        return out;
     }
 
-private:
-    int hours = 0;
-    int minutes = 0;
-    int seconds = 0;
+    friend std::istream& operator >> (std::istream& in, Money& a)
+    {
+        std::cout << "Enter amount of rubles" << std::endl;
+        in >> a.rubles;
+        std::cout << "Enter amount of kopeck" << std::endl;
+        in >> a.kopeck;
+        return in;
+    }
 
-    void fromString(std::string_view moneyString);
+    inline int GetK() const { return kopeck; };
+    inline long GetR() const { return rubles; };
+    inline void SetK(const int k) { kopeck = k; };
+    inline void SetR(const long r) { rubles = r; };
+
+private:
+    long rubles = 0;
+    int kopeck = 0;
 };
 
-Money::Money(std::string_view moneyString)
-{
-    fromString(moneyString);
-}
-
-void Money::fromString(std::string_view moneyString)
-{
-    std::istringstream ss(std::string(moneyString.data()));
-    char delim;
-    ss >> hours >> delim >> minutes >> delim >> seconds;
-}
-
-
-
- 
-
+#endif

@@ -1,115 +1,120 @@
 #pragma once
-
-#include <iostream>
-#include <memory>
+#ifndef MYVECTORH
+#define MYVECTORH
 #include <vector>
-#include <algorithm>
-#include <numeric>
-#include <ranges>
+#include <iostream>
 
-template <typename T>
+template<class T>
 class Vvector
 {
 public:
     Vvector() = default;
+    explicit Vvector(int n);
     ~Vvector() = default;
-
-    void app(const T &other);
-    int currSize() const;
-
-    int getCurrSize() const;
-    T operator[](const int index) const;
-    
-    void print() const;
-
-    int getMaxSize() const { return maxSize; };
-
-    void insertElementAtPosition(const T &key, int position);
-    void eraseElement(const T &key);
-    void subtractMaxMinDifference();
-
+    void Print() const;
+    void Add(const T& a);
+    void putMinToEnd();
+    void findByKeyAndDelete(T key);
+    void addAllMinMaxSum();
 private:
-    std::unique_ptr<std::vector<T>> elements = std::make_unique<std::vector<T>>(2);
-    int maxSize = 2;
-    int currLength = 0;
+    std::vector <T> _vec;
+    int len = 0;
 };
 
-template <typename T>
-void Vvector<T>::app(const T &other)
+#endif
+
+template<class T>
+inline Vvector<T>::Vvector(int n)
 {
-    if (currLength >= maxSize)
+    T a;
+    for (int i = 0; i < n; i++)
     {
-        auto newElements = std::make_unique<std::vector<T>>(maxSize * 2);
-        std::ranges::copy(*elements, newElements->begin());
-        elements = std::move(newElements);
-        maxSize *= 2;
+        std::cin >> a;
+        _vec.push_back(a);
     }
-    (*elements)[currLength] = other;
-    currLength++;
+    len = _vec.size();
 }
 
-
-template <typename T>
-int Vvector<T>::currSize() const
+template<class T>
+inline void Vvector<T>::Print() const
 {
-    return currLength;
-}
-
-template <typename T>
-int Vvector<T>::getCurrSize() const
-{
-    return currSize();
-}
-
-template <typename T>
-T Vvector<T>::operator[](const int index) const
-{
-    return (*elements)[index];
-}
-
-template <typename T>
-void Vvector<T>::print() const
-{
-    std::cout << "{ ";
-    for (const auto &elem : *elements | std::views::take(currLength))
+    for (int i = 0; i < _vec.size(); i++)
     {
-        std::cout << elem << " ";
-    }
-    std::cout << "}" << std::endl;
-}
-
-template <typename T>
-void Vvector<T>::insertElementAtPosition(const T &key, int position)
-{
-    if (currLength == 0 || position < 0 || position > currLength)
-        return;
-
-    if (auto it = std::ranges::find(*elements | std::views::take(currLength), key); it != elements->begin() + currLength)
-    {
-        elements->insert(elements->begin() + position, *it);
-        ++currLength;
+        std::cout << _vec[i] << std::endl;
     }
 }
 
-template <typename T>
-void Vvector<T>::eraseElement(const T &key)
+template<class T>
+inline void Vvector<T>::Add(const T& a)
 {
-    if (auto it = std::ranges::find(*elements | std::views::take(currLength), key); it != elements->begin() + currLength)
-    {
-        std::move(it + 1, elements->begin() + currLength, it);
-        --currLength;
-    }
+    _vec.push_back(a);
+    len++;
 }
 
-template <typename T>
-void Vvector<T>::subtractMaxMinDifference()
+template<class T>
+inline void Vvector<T>::putMinToEnd()
 {
-    if (currLength == 0)
-        return;
+    int index = 0;
+    T tmp = _vec[0];
+    for (int i = 1; i < _vec.size(); i++)
+    {
+        if (_vec[i] < tmp)
+        {
+            index = i;
+            tmp = _vec[i];
+        }
+    }
 
-    auto [minElem, maxElem] = std::ranges::minmax(*elements | std::views::take(currLength));
-    T difference = maxElem - minElem;
+    _vec.erase(_vec.begin() + index);
 
-    std::ranges::for_each(*elements | std::views::take(currLength), [difference](T &elem)
-                          { elem -= difference; });
+    _vec.push_back(tmp);
+}
+
+template<class T>
+inline void Vvector<T>::findByKeyAndDelete(T key)
+{
+    int index = 0;
+    for (int i = 0; i < _vec.size(); i++)
+    {
+        if (_vec[i] == key)
+        {
+            index = i;
+            _vec.erase(_vec.begin() + index);
+            break;
+        }
+    }
+    len--;
+}
+
+template<class T>
+inline void Vvector<T>::addAllMinMaxSum()
+{
+    int index = 0;
+    T min = _vec[0];
+    for (int i = 1; i < _vec.size(); i++)
+    {
+        if (_vec[i] < min)
+        {
+            index = i;
+            min = _vec[i];
+        }
+    }
+
+    int index1 = 0;
+    T max = _vec[0];
+    for (int i = 1; i < _vec.size(); i++)
+    {
+        if (_vec[i] > max)
+        {
+            index1 = i;
+            max = _vec[i];
+        }
+    }
+
+    T sum = min + max;
+
+    for (int i = 0; i < _vec.size(); i++)
+    {
+        _vec[i] = _vec[i] + sum;
+    }
 }
