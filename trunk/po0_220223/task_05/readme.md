@@ -99,7 +99,7 @@ void adjustElementsByDifference(std::queue<T> &q)
 
 ```
 
-### Задания для третьей задачи###
+### Задания для третьей задачи ###
 
 ```c++
 

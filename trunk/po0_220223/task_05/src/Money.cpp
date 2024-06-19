@@ -3,7 +3,7 @@
 
 Coins::Coins(const double a)
     : rubles(static_cast<long>(a)),
-      kopeck(static_cast<int>((a - static_cast<int>(a)) * 100))
+      kopeck(static_cast<int>((a - static_cast<long>(a)) * 100))
 {
 }
 
@@ -12,13 +12,11 @@ bool Coins::operator==(const Coins& a) const
     return (kopeck == a.kopeck && rubles == a.rubles);
 }
 
-std::partial_ordering Coins::operator<=>(const Coins& a) const
+std::strong_ordering Coins::operator<=>(const Coins& a) const
 {
-    if (rubles < a.rubles || (rubles == a.rubles && kopeck < a.kopeck))
-        return std::partial_ordering::less;
-    if (rubles > a.rubles || (rubles == a.rubles && kopeck > a.kopeck))
-        return std::partial_ordering::greater;
-    return std::partial_ordering::equivalent;
+    if (auto cmp = rubles <=> a.rubles; cmp != 0)
+        return cmp;
+    return kopeck <=> a.kopeck;
 }
 
 Coins::Coins(long r, int k) : rubles(r), kopeck(k) {}
