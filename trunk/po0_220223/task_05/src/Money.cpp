@@ -12,22 +12,13 @@ bool Coins::operator==(const Coins& a) const
     return (kopeck == a.kopeck && rubles == a.rubles);
 }
 
-bool Coins::operator<(const Coins& a) const
+std::partial_ordering Coins::operator<=>(const Coins& a) const
 {
-    if (rubles < a.rubles)
-        return true;
-    if (rubles == a.rubles && kopeck < a.kopeck)
-        return true;
-    return false;
-}
-
-bool Coins::operator>(const Coins& a) const
-{
-    if (rubles > a.rubles)
-        return true;
-    if (rubles == a.rubles && kopeck > a.kopeck)
-        return true;
-    return false;
+    if (rubles < a.rubles || (rubles == a.rubles && kopeck < a.kopeck))
+        return std::partial_ordering::less;
+    if (rubles > a.rubles || (rubles == a.rubles && kopeck > a.kopeck))
+        return std::partial_ordering::greater;
+    return std::partial_ordering::equivalent;
 }
 
 Coins::Coins(long r, int k) : rubles(r), kopeck(k) {}

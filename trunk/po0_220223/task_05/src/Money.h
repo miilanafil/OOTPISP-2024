@@ -16,8 +16,8 @@ public:
     Coins& operator=(const Coins& a) = default;
     bool operator==(const Coins& a) const;
     
-    bool operator<(const Coins& a) const;
-    bool operator>(const Coins& a) const;
+    // Define operator<=>
+    std::partial_ordering operator<=>(const Coins& a) const;
 
     friend Coins operator+(const Coins& lhs, const Coins& rhs)
     {
