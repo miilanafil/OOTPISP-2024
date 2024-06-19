@@ -1,147 +1,120 @@
 #pragma once
-#ifndef MYQVECTOR
-#define MYQVECTOR
-#include <queue>
+#ifndef VECTORH
+#define VECTORH
+#include <vector>
 #include <iostream>
 
-
-template <class T>
-class VectorOnPriority
+template<class T>
+class MyVvector
 {
 public:
-    VectorOnPriority() = default;
-    explicit VectorOnPriority(int n);
-    ~VectorOnPriority() = default;
+    MyVvector() = default;
+    explicit MyVvector(int n);
+    ~MyVvector() = default;
     void Print() const;
     void Add(const T& a);
     void putMinToEnd();
     void findByKeyAndDelete(T key);
     void addAllMinMaxSum();
 private:
-    std::queue <T> _q;
-    int _len = 0;
+    std::vector <T> _vect;
+    int leng = 0;
 };
 
 #endif
 
 template<class T>
-inline void VectorOnPriority<T>::Print() const
-{
-    std::queue <T> tmp_q = _q;
-    for (int i = 0; i < _len;  i++)
-    {
-        std::cout << tmp_q.front() << std::endl;
-        tmp_q.pop();
-    }
-}
-
-template<class T>
-inline void VectorOnPriority<T>::Add(const T& a)
-{
-    _q.push(a);
-    _len++;
-}
-
-template<class T>
-inline void VectorOnPriority<T>::putMinToEnd()
-{
-    int index = 0;
-    std::queue<T> tmp_q = _q;
-    T tmp = tmp_q.front(); tmp_q.pop();
-    for (int i = 1; i < _q.size(); i++)
-    {
-        T tmp1 = tmp_q.front(); tmp_q.pop();
-            if (tmp1 < tmp)
-            {
-                index = i;
-                tmp = tmp1;
-            }
-    }
-    auto len = static_cast<int>(_q.size());
-    tmp_q = _q;
-    for (int i = 0; i < len; i++)
-    {
-        _q.pop();
-        if (i != index)
-            _q.push(tmp_q.front());
-        tmp_q.pop();
-    }
-    _q.push(tmp);
-}
-
-template<class T>
-inline void VectorOnPriority<T>::findByKeyAndDelete(T key)
-{
-    int index = 0;
-    std::queue<T> tmp_q = _q;
-    for (int i = 0; i < _q.size(); i++)
-    {
-        if (tmp_q.front() == key)
-        {
-            index = i;
-        }
-        tmp_q.pop();
-    }
-    auto len = static_cast<int>(_q.size());
-    tmp_q = _q;
-    for (int i = 0; i < len; i++)
-    {
-        _q.pop();
-        if (i != index)
-        {
-            _q.push(tmp_q.front());
-            tmp_q.pop();
-        }
-    }
-    _len--;
-}
-
-template<class T>
-inline void VectorOnPriority<T>::addAllMinMaxSum()
-{
-    std::queue<T> tmp_q = _q;
-    T min = tmp_q.front(); tmp_q.pop();
-    for (int i = 1; i < _q.size(); i++)
-    {
-        T tmp1 = tmp_q.front(); tmp_q.pop();
-        if (tmp1 < min)
-        {
-            min = tmp1;
-        }
-    }
-
-    tmp_q = _q;
-    T max = tmp_q.front(); tmp_q.pop();
-    for (int i = 1; i < _q.size(); i++)
-    {
-        T tmp1 = tmp_q.front(); tmp_q.pop();
-        if (tmp1 > max)
-        {
-            max = tmp1;
-        }
-    }
-
-    T sum = min + max;
-    auto len = static_cast<int>(_q.size());
-    tmp_q = _q;
-    for (int i = 0; i < len; i++)
-    {
-        _q.pop();
-        _q.push(tmp_q.front() + sum);
-        tmp_q.pop();
-    }
-
-}
-
-
-template<class T>
-inline VectorOnPriority<T>::VectorOnPriority(int n)
+inline MyVvector<T>::MyVvector(int n)
 {
     T a;
     for (int i = 0; i < n; i++)
     {
         std::cin >> a;
-        _q.push(a);
+        _vect.push_back(a);
     }
-    _len = _q.size();
+    leng = _vect.size();
+}
+
+template<class T>
+inline void MyVvector<T>::Print() const
+{
+    for (int i = 0; i < _vect.size(); i++)
+    {
+        std::cout << _vect[i] << std::endl;
+    }
+}
+
+template<class T>
+inline void MyVvector<T>::Add(const T& a)
+{
+    _vect.push_back(a);
+    leng++;
+}
+
+template<class T>
+inline void MyVvector<T>::putMinToEnd()
+{
+    int index = 0;
+    T tmp = _vect[0];
+    for (int i = 1; i < _vect.size(); i++)
+    {
+        if (_vect[i] < tmp)
+        {
+            index = i;
+            tmp = _vect[i];
+        }
+    }
+
+    _vect.erase(_vect.begin() + index);
+
+    _vect.push_back(tmp);
+}
+
+template<class T>
+inline void MyVvector<T>::findByKeyAndDelete(T key)
+{
+    int index = 0;
+    for (int i = 0; i < _vect.size(); i++)
+    {
+        if (_vect[i] == key)
+        {
+            index = i;
+            _vect.erase(_vect.begin() + index);
+            break;
+        }
+    }
+    leng--;
+}
+
+template<class T>
+inline void MyVvector<T>::addAllMinMaxSum()
+{
+    int index = 0;
+    T min = _vect[0];
+    for (int i = 1; i < _vect.size(); i++)
+    {
+        if (_vect[i] < min)
+        {
+            index = i;
+            min = _vect[i];
+        }
+    }
+
+    int index1 = 0;
+    T max = _vect[0];
+    for (int i = 1; i < _vect.size(); i++)
+    {
+        if (_vect[i] > max)
+        {
+            index1 = i;
+            max = _vect[i];
+        }
+    }
+
+    T sum = min + max;
+
+    for (int i = 0; i < _vect.size(); i++)
+    {
+        _vect[i] = _vect[i] + sum;
+    }
 }

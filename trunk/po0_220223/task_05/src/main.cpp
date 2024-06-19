@@ -5,6 +5,7 @@
 #include <queue>
 #include "VectorOnPriority.h"
 
+
 template<class T>
 void putMinToEnd(std::vector<T> &vec);
 template<class T>
@@ -22,13 +23,13 @@ void QaddAllMinMaxSum(std::queue<T> &q);
 int main()
 {
     std::cout << "Task1" << std::endl;
-    
+
     std::vector<float> vec;
     vec.push_back(float(1.50));
     vec.push_back(float(2.50));
     vec.push_back(float(1.30));
     vec.push_back(float(5.50));
-    
+
     putMinToEnd(vec);
     findByKeyAndDelete(vec, float(1.50));
     addAllMinMaxSum(vec);
@@ -36,83 +37,78 @@ int main()
     {
         std::cout << elt << std::endl;
     }
-    
-    std::cout << "-----------------------------------" << std::endl;
+
 
 
     std::cout << "Task2" << std::endl;
-    
-    std::vector<Mmoney> moneybagVec;
-    moneybagVec.push_back(Mmoney(1.50));
-    moneybagVec.push_back(Mmoney(1.20));
-    moneybagVec.push_back(Mmoney(1.10));
-    moneybagVec.push_back(Mmoney(2.50));
-    moneybagVec.push_back(Mmoney(2.00));
+
+    std::vector<Coins> moneybagVec;
+    moneybagVec.push_back(Coins(1.50));
+    moneybagVec.push_back(Coins(1.20));
+    moneybagVec.push_back(Coins(1.10));
+    moneybagVec.push_back(Coins(2.50));
+    moneybagVec.push_back(Coins(2.00));
 
     putMinToEnd(moneybagVec);
-    findByKeyAndDelete(moneybagVec, Mmoney(1.50));
+    findByKeyAndDelete(moneybagVec, Coins(1.50));
     addAllMinMaxSum(moneybagVec);
     for (auto elt1 : moneybagVec)
     {
         std::cout << elt1 << std::endl;
     }
-    std::cout << "-----------------------------------" << std::endl;
 
 
     std::cout << "Task3" << std::endl;
 
-    Vvector<Mmoney> my_moneybagVec;
-    my_moneybagVec.Add(Mmoney(1.50));
-    my_moneybagVec.Add(Mmoney(1.20));
-    my_moneybagVec.Add(Mmoney(1.30));
-    my_moneybagVec.Add(Mmoney(1.10));
-    my_moneybagVec.Add(Mmoney(2.50));
+    Vvector<Coins> my_moneybagVec;
+    my_moneybagVec.Add(Coins(1.50));
+    my_moneybagVec.Add(Coins(1.20));
+    my_moneybagVec.Add(Coins(1.30));
+    my_moneybagVec.Add(Coins(1.10));
+    my_moneybagVec.Add(Coins(2.50));
 
     my_moneybagVec.putMinToEnd();
-    my_moneybagVec.findByKeyAndDelete(Mmoney(1.20));
+    my_moneybagVec.findByKeyAndDelete(Coins(1.20));
     my_moneybagVec.addAllMinMaxSum();
     my_moneybagVec.Print();
 
-    std::cout << "-----------------------------------" << std::endl;
 
 
     std::cout << "Task4" << std::endl;
 
-    std::queue<Mmoney> q;
-    q.push(Mmoney(1.50));
-    q.push(Mmoney(1.20));
-    q.push(Mmoney(1.10));
-    q.push(Mmoney(2.50));
-    q.push(Mmoney(2.00));
+    std::queue<Coins> q;
+    q.push(Coins(1.50));
+    q.push(Coins(1.20));
+    q.push(Coins(1.10));
+    q.push(Coins(2.50));
+    q.push(Coins(2.00));
 
     QputMinToEnd(q);
-    QfindByKeyAndDelete(q, Mmoney(1.50));
+    QfindByKeyAndDelete(q, Coins(1.50));
     QaddAllMinMaxSum(q);
 
-    std::queue<Mmoney> tmp_q = q;
+    std::queue<Coins> tmp_q = q;
     for (int i = 0; i < q.size(); i++)
     {
         std::cout << tmp_q.front() << std::endl;
         tmp_q.pop();
     }
 
-    std::cout << "-----------------------------------" << std::endl;
 
     std::cout << "Task5" << std::endl;
 
-    VectorOnPriority<Mmoney> qvec;
-    qvec.Add(Mmoney(1.50));
-    qvec.Add(Mmoney(1.20));
-    qvec.Add(Mmoney(1.30));
-    qvec.Add(Mmoney(1.10));
-    qvec.Add(Mmoney(2.50));
+    Vvector<Coins> qvec;
+    qvec.Add(Coins(1.50));
+    qvec.Add(Coins(1.20));
+    qvec.Add(Coins(1.30));
+    qvec.Add(Coins(1.10));
+    qvec.Add(Coins(2.50));
 
     qvec.putMinToEnd();
-    qvec.findByKeyAndDelete(Mmoney(1.50));
+    qvec.findByKeyAndDelete(Coins(1.50));
     qvec.addAllMinMaxSum();
     qvec.Print();
 
-    std::cout << "-----------------------------------" << std::endl;
 
 }
 
