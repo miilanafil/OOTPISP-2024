@@ -4,20 +4,20 @@
 #define COINSH
 
 #include <iostream>
+#include <compare>
 
 class Coins
 {
 public:
     Coins() = default;
-    explicit Coins(const double a);
+    explicit Coins(double a);
     Coins(long int r, int k);
     Coins(const Coins& other) = default;
     ~Coins() = default;
     Coins& operator=(const Coins& a) = default;
     bool operator==(const Coins& a) const;
 
-    // Define operator<=>
-    std::strong_ordering operator<=>(const Coins& a) const;
+    std::strong_ordering operator<=>(const Coins& a) const = default;
 
     friend Coins operator+(const Coins& lhs, const Coins& rhs)
     {
@@ -46,10 +46,10 @@ public:
         return in;
     }
 
-    inline int GetK() const { return kopeck; };
-    inline long GetR() const { return rubles; };
-    inline void SetK(const int k) { kopeck = k; };
-    inline void SetR(const long r) { rubles = r; };
+    inline int GetK() const { return kopeck; }
+    inline long GetR() const { return rubles; }
+    inline void SetK(int k) { kopeck = k; }
+    inline void SetR(long r) { rubles = r; }
 
 private:
     long rubles = 0;
