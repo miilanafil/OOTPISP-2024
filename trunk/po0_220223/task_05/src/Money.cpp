@@ -1,9 +1,10 @@
 #include "Money.h"
 
 Coins::Coins(double a)
+    : rubles(static_cast<long>(a)),
+      kopeck(static_cast<int>((a - static_cast<long>(a)) * 100 + 0.5))
 {
-    rubles = static_cast<long>(a);
-    kopeck = static_cast<int>((a - rubles) * 100 + 0.5);  // округление до ближайшего целого
+    // Здесь можно оставить тело конструктора пустым, если дополнительная логика не требуется
 }
 
 bool Coins::operator==(const Coins& a) const
